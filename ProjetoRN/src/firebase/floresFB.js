@@ -7,7 +7,7 @@ export class FloresFB {
 
     pegarItens() {
         return this.state.colecao;
-    }
+   }
 
     adicionarFlor(flor) {
         this.state.colecao.add(flor);

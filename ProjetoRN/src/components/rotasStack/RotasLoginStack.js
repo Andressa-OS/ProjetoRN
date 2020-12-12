@@ -4,6 +4,7 @@ import Login from '../../views/Login/Login'
 import Sobre from '../../views/Sobre/Sobre'
 import Produto from '../../views/Produto/Produto'
 import RotasTab from '../rotasTab/RotasTab'
+import Item from '../../views/Item/Item';
 
 const Stack = createStackNavigator()
 
@@ -40,6 +41,16 @@ const RotasLoginStack = () => {
             <Stack.Screen
                 name="Produto"
                 component={Produto}
+                options={
+                    {
+                        headerShown: false
+                    }
+                }
+            />
+            <Stack.Screen
+                name="Item"
+                component={Item}
+                initialParams={{ item: {}, operacao: 'adicionar' }}
                 options={
                     {
                         headerShown: false

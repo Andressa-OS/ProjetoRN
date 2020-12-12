@@ -1,6 +1,5 @@
 import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import { Text } from 'react-native'
 import Inicial from '../../views/Inicial/Inicial'
 import Perfil from '../../views/Perfil/Perfil'
 import Carrinho from '../../views/Carrinho/Carrinho'
@@ -13,7 +12,7 @@ const icones = {
     Inicial: { name: 'home' },
     Carrinho: { name: 'shoppingcart' },
     Notificacao: { name: 'bells' },
-    Perfil: { name: 'user' }
+    Perfil: { name: 'user' },
 }
 
 const RotasTab = () => {

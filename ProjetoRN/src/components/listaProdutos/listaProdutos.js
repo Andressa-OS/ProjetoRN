@@ -1,10 +1,27 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { FlatList, Text, View, Image } from 'react-native'
 import estiloListaProdutos from './estiloListaProdutos'
 import PreTexto from '../../components/preTexto/PreTexto'
 import { TouchableOpacity } from 'react-native-gesture-handler'
+import { FloresFB } from '../../firebase/floresFB'
 
 const ListaProdutos = (props) => {
+
+    const [flores, setFlores] = useState([]);
+
+    const floresFB = new FloresFB();
+
+    useEffect(() => {
+        floresFB.pegarItens()
+            .orderBy('nome')
+            .onSnapshot((query) => {
+                const items = [];
+                query.forEach((doc) => {
+                    items.push({ ...doc.data(), id: doc.id });
+                });
+                setFlores(items);
+            })
+    }, [])
 
     const [produtos, setProdutos] = useState([
         {
@@ -44,7 +61,8 @@ const ListaProdutos = (props) => {
     return (
         <View style={estiloListaProdutos.areaItens}>
             <FlatList
-                data={produtos}
+                data={flores}
+                showsHorizontalScrollIndicator={false}
                 keyExtractor={item => item.id}
                 numColumns={2}
                 ListHeaderComponent={
@@ -56,16 +74,16 @@ const ListaProdutos = (props) => {
                             <TouchableOpacity onPress={
                                 () => {
                                     props.navigation.navigate('Produto', {
-                                        nome: item.produto,
+                                        nome: item.nome,
                                         preco: item.preco,
-                                        imagem: item.imagem,
+                                        // imagem: item.imagem,
                                         descricao: item.descricao,
                                         cor: item.cor
                                     })
                                 }}>
-                                <Image source={item.imagem[0]} style={estiloListaProdutos.imagem} />
+                                {/* <Image source={item.imagem[0]} style={estiloListaProdutos.imagem} /> */}
                                 <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between' }}>
-                                    <Text style={estiloListaProdutos.produtoNome}>{item.produto}</Text>
+                                    <Text style={estiloListaProdutos.produtoNome}>{item.nome}</Text>
                                     <Text style={estiloListaProdutos.produtoPreco}>R${item.preco}</Text>
                                 </View>
                             </TouchableOpacity>

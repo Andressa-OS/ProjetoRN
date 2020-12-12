@@ -35,6 +35,7 @@ function Login({ navigation }) {
             <View style={estiloLogin.fields}>
                 <Text style={[estiloLogin.fieldsText, estiloLogin.greyText]}>Palavra passe</Text>
                 <TextInput style={estiloLogin.fieldsTextInput}
+                    secureTextEntry={true}
                     onChangeText={senha => setSenha(senha)}
                     value={senha} />
             </View>
